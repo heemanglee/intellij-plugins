@@ -1,0 +1,28 @@
+<idea-plugin>
+    <id>io.heemang.goto-right-split</id>
+    <name>Go to Declaration in Right Split</name>
+    <vendor>heemang</vendor>
+    <description><![CDATA[
+        Cmd+Option+Click opens the declaration under the mouse in the right editor split.
+        The left split keeps the original code; the right split is reused for details.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+
+    <actions>
+        <action id="GotoRightSplit.GotoDeclarationInRightSplit"
+                class="io.heemang.gotorightsplit.GotoDeclarationInRightSplitAction"
+                text="Go to Declaration in Right Split"
+                description="Open the declaration in the right editor split">
+            <!-- macOS 키맵은 $default의 ctrl을 cmd로 변환하므로 Cmd+Option+Click이 된다. -->
+            <mouse-shortcut keymap="$default" keystroke="ctrl alt button1"/>
+            <add-to-group group-id="EditorPopupMenu.GoTo" anchor="last"/>
+        </action>
+    </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- 같은 단축키를 쓰는 Go to Implementation보다 이 액션을 먼저 실행한다. -->
+        <actionPromoter implementation="io.heemang.gotorightsplit.RightSplitActionPromoter"/>
+    </extensions>
+</idea-plugin>
